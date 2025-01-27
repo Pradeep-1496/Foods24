@@ -1,5 +1,6 @@
 // import './Login.dart';
-// import './Create.dart';
+import './SignUp.dart';
+import './Login.dart';
 
 import 'package:flutter/material.dart';
 
@@ -27,11 +28,11 @@ class Home extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => Create(),
-                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Create(),
+                        ));
                   },
                   child: Text("Create a Account"),
                 ),
@@ -40,11 +41,11 @@ class Home extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => Login(),
-                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Login(),
+                        ));
                   },
                   child: Text("Login"),
                 ),
