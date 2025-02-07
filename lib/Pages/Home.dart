@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Welcome to Foods 24',
+              'Welcome...',
               style: TextStyle(fontSize: 30),
             ),
             SizedBox(height: 30),
