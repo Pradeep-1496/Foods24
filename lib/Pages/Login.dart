@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foods24/Pages/PermissionScreen.dart';
 import 'package:foods24/Pages/SignUp.dart';
 
 class Login extends StatelessWidget {
@@ -162,7 +163,13 @@ class Login extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PermissionScreen()),
+                            (route) => false);
+                      },
                       child: Text(
                         'Login',
                         style: TextStyle(
