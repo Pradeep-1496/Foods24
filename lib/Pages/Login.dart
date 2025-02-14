@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foods24/Pages/ForgetPassword.dart';
 import 'package:foods24/Pages/PermissionScreen.dart';
 import 'package:foods24/Pages/SignUp.dart';
 
@@ -47,14 +48,7 @@ class Login extends StatelessWidget {
                       ),
                       const SizedBox(width: 100),
                       GestureDetector(
-                        onTap: () {
-                          // Handle Login text tap here
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Login(),
-                              ));
-                        },
+                        onTap: () {},
                         child: Text(
                           'Login',
                           style: TextStyle(
@@ -141,11 +135,37 @@ class Login extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 130),
+                  const SizedBox(height: 20),
 
-                  // Registration Button
+                  // Align text to the left for "Password"
+                  // Align text to the right for "Forget Password"
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgetPassword(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Forget Password',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.orange,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 100),
+
+                  // Login Button
                   Container(
-                    width: 250, // Set the width as per your requirement
+                    width: 250,
                     height: 56,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -164,11 +184,17 @@ class Login extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PermissionScreen()),
-                            (route) => false);
+                        // Navigator.pushAndRemoveUntil(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => PermissionScreen()),
+                        //     (route) => false);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PermissionScreen(),
+                          ),
+                        );
                       },
                       child: Text(
                         'Login',

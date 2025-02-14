@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foods24/Pages/Home.dart';
 
 class PermissionScreen extends StatelessWidget {
   @override
@@ -116,7 +117,17 @@ class PermissionScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    // Navigator.pushAndRemoveUntil(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => HomeScreen()),
+                    //     (route) => false);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ));
+                  },
                   child: Text(
                     'Proceed',
                     style: TextStyle(
