@@ -1,4 +1,4 @@
-import 'package:foods24/Pages/Home.dart';
+import 'package:foods24/Pages/First.dart';
 
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ class Dashboard extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => Home()),
+                      MaterialPageRoute(builder: (context) => First()),
                       (route) => false);
                 },
                 child: Text("Logout"),

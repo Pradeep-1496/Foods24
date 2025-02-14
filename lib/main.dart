@@ -18,8 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        useMaterial3: true,
-      ),
+          scaffoldBackgroundColor: Colors.white, primaryColor: Colors.orange),
       home: SplashScreen(),
     );
   }
