@@ -5,17 +5,21 @@ class PermissionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      body: SingleChildScrollView(
+        child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            bottom:
+                MediaQuery.of(context).viewInsets.bottom, // Adjust for keyboard
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 120),
               Image.asset('assets/img/permission.png', width: 200, height: 200),
-              // Permission Title
               Text(
                 "Grant Permission",
                 style: TextStyle(
@@ -25,77 +29,23 @@ class PermissionScreen extends StatelessWidget {
               ),
               SizedBox(height: 60),
 
-              // Location Permission - Centered
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.location_on,
-                      color: Colors.blue,
-                      size: 50,
-                    ),
-                    SizedBox(width: 20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Location Permission",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "To suggest best restaurant near you",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              // Location Permission Section
+              permissionItem(
+                icon: Icons.location_on,
+                title: "Location Permission",
+                subtitle: "To suggest best restaurant near you",
               ),
 
               SizedBox(height: 20),
 
-              // Notification Permission - Centered
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.notifications,
-                      color: Colors.blue,
-                      size: 50,
-                    ),
-                    SizedBox(width: 20),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Notification Permission",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "To inform you about your booking",
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              // Notification Permission Section
+              permissionItem(
+                icon: Icons.notifications,
+                title: "Notification Permission",
+                subtitle: "To inform you about your booking",
               ),
 
-              SizedBox(height: 180),
+              SizedBox(height: 100), // Adjust space dynamically
 
               // Proceed Button
               Container(
@@ -118,15 +68,12 @@ class PermissionScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    // Navigator.pushAndRemoveUntil(
-                    //     context,
-                    //     MaterialPageRoute(builder: (context) => HomeScreen()),
-                    //     (route) => false);
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomeScreen(),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(),
+                      ),
+                    );
                   },
                   child: Text(
                     'Proceed',
@@ -138,9 +85,45 @@ class PermissionScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              SizedBox(height: 40),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget permissionItem(
+      {required IconData icon,
+      required String title,
+      required String subtitle}) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: Colors.blue, size: 50),
+          SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
