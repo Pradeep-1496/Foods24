@@ -17,7 +17,7 @@ export default function RestaurantDetails() {
     async function fetchRestaurant() {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/restaurants/${id}`, // or vercel backend URL
+          `https://foods24-be.vercel.app/api/restaurants/${id}`, // or vercel backend URL
           { headers: { Authorization: `Bearer ${token}` } }
         );
         const data = await res.json();
