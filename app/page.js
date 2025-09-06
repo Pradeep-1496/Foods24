@@ -27,9 +27,7 @@ export default function Home() {
 
           <p className="text-sm text-center mt-3">
           {" "} 
-          <Link href="/admin/login" className="text-blue-600 font-medium">
-            Admin login
-          </Link>
+          
         </p>
         </div>
       </div>

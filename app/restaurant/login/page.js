@@ -61,6 +61,13 @@ export default function RestaurantLogin() {
           className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
           Login
         </button>
+        {/* Button for Registration  */}
+        <button
+          type="button"
+          onClick={() => router.push("/restaurant/register")}
+          className="w-full mt-3 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
+          New Partner
+        </button>
       </form>
     </div>
   );
