@@ -63,7 +63,7 @@ export default function RestaurantDetails() {
     if (cart.length === 0) return alert("Your cart is empty!");
 
     try {
-      const res = await fetch(`${API_BASE}/order`, {
+      const res = await fetch(`http://localhost:5000/order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
