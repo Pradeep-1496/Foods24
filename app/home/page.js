@@ -28,7 +28,7 @@ export default function HomePage() {
   // Fetch restaurants
   async function fetchRestaurants() {
     try {
-      const res = await fetch("http://localhost:5000/api/restaurants", {
+      const res = await fetch("https://foods24-be.vercel.app/api/restaurants", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -41,7 +41,7 @@ export default function HomePage() {
   // Fetch user profile
   async function fetchUser() {
     try {
-      const res = await fetch("http://localhost:5000/auth/user/me", {
+      const res = await fetch("https://foods24-be.vercel.app/auth/user/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -54,7 +54,7 @@ export default function HomePage() {
   // Fetch order history
   async function fetchOrders() {
     try {
-      const res = await fetch("http://localhost:5000/order/user", {
+      const res = await fetch("https://foods24-be.vercel.app/order/user", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -77,7 +77,7 @@ export default function HomePage() {
   // Update profile
   async function handleUpdate() {
     try {
-      const res = await fetch("http://localhost:5000/auth/user/me", {
+      const res = await fetch("https://foods24-be.vercel.app/auth/user/me", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +95,6 @@ export default function HomePage() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      
       case "pending":
         return "text-yellow-600 bg-yellow-100";
       case "ongoing":
