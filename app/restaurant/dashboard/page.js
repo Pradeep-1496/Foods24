@@ -21,7 +21,7 @@ export default function Dashboard() {
   // Fetch menu data
   async function fetchMenu() {
     try {
-      const res = await fetch("http://localhost:5000/restaurant/menu", {
+      const res = await fetch("https://foods24-be.vercel.app/restaurant/menu", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       const data = await res.json();
@@ -35,7 +35,7 @@ export default function Dashboard() {
   // Fetch orders data
   async function fetchOrders() {
     try {
-      const res = await fetch("http://localhost:5000/order/restaurant", {
+      const res = await fetch("https://foods24-be.vercel.app/order/restaurant", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       const data = await res.json();
@@ -54,7 +54,7 @@ export default function Dashboard() {
   // Handler to add a new menu item
   async function handleAddItem() {
     try {
-      const res = await fetch("http://localhost:5000/restaurant/menu/item", {
+      const res = await fetch("https://foods24-be.vercel.app/restaurant/menu/item", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ export default function Dashboard() {
     if (window.confirm("Are you sure you want to delete this item?")) {
       try {
         const res = await fetch(
-          `http://localhost:5000/restaurant/menu/item/${id}`,
+          `https://foods24-be.vercel.app/restaurant/menu/item/${id}`,
           {
             method: "DELETE",
             headers: {
@@ -96,7 +96,7 @@ export default function Dashboard() {
   async function handleUpdate() {
     try {
       const res = await fetch(
-        `http://localhost:5000/restaurant/menu/item/${editingItem._id}`,
+        `https://foods24-be.vercel.app/restaurant/menu/item/${editingItem._id}`,
         {
           method: "PUT",
           headers: {
@@ -117,7 +117,7 @@ export default function Dashboard() {
   // Update order status
   async function updateOrderStatus(orderId, status) {
     try {
-      await fetch(`http://localhost:5000/order/${orderId}/status`, {
+      await fetch(`https://foods24-be.vercel.app/order/${orderId}/status`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
