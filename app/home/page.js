@@ -18,7 +18,7 @@ export default function HomePage() {
     async function fetchRestaurants() {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/restaurants",
+          "https://foods24-be.vercel.app/api/restaurants",
           {
             headers: { Authorization: `Bearer ${token}` },
           }

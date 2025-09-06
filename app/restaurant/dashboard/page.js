@@ -10,7 +10,7 @@ export default function Dashboard() {
   // ✅ Fetch menu
   async function fetchMenu() {
     try {
-      const res = await fetch("http://localhost:5000/restaurant/menu", {
+      const res = await fetch("https://foods24-be.vercel.app/restaurant/menu", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -31,7 +31,7 @@ export default function Dashboard() {
   async function handleAddItem(e) {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5000/restaurant/menu/item", {
+      const res = await fetch("https://foods24-be.vercel.app/restaurant/menu/item", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default function Dashboard() {
   // ✅ Delete item
   async function handleDelete(id) {
     try {
-      const res = await fetch(`http://localhost:5000/restaurant/menu/item/${id}`, {
+      const res = await fetch(`https://foods24-be.vercel.app/restaurant/menu/item/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -67,7 +67,7 @@ export default function Dashboard() {
   async function handleUpdate(e) {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/restaurant/menu/item/${editingItem._id}`, {
+      const res = await fetch(`https://foods24-be.vercel.app/restaurant/menu/item/${editingItem._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
