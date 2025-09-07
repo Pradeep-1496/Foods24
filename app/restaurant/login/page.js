@@ -122,7 +122,7 @@ export default function RestaurantLogin() {
                 <div className="w-full border-t border-gray-300"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">New to our platform?</span>
+                <span className="px-2 bg-white backdrop-blur-lg rounded border-1 border-gray-300 text-gray-500">New to our platform?</span>
               </div>
             </div>
 

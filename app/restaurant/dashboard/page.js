@@ -549,13 +549,15 @@ export default function Dashboard() {
                     </button>
                   </div>
                 ) : (
-                  <button
-                    onClick={() => setIsEditingProfile(true)}
-                    className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors"
-                  >
-                    <Edit className="w-4 h-4" />
-                    <span>Edit Profile</span>
-                  </button>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => setIsEditingProfile(true)}
+                      className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors"
+                    >
+                      <Edit className="w-4 h-4" />
+                      <span>Edit Profile</span>
+                    </button>
+                  </div>
                 )}
               </div>
             </div>
