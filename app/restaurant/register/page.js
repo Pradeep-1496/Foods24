@@ -25,7 +25,7 @@ export default function RestaurantRegister() {
 
     try {
       const res = await fetch(
-        "https://foods24-be.vercel.app/auth/restaurant/register",
+        "http://localhost:5000/auth/restaurant/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -39,9 +39,8 @@ export default function RestaurantRegister() {
       }
 
       setSuccess("Restaurant registered successfully!");
-      setTimeout(() => {
-        router.push("/restaurant/dashboard");                  
-      }, 1500);
+
+      router.push("/restaurant/login");
     } catch (err) {
       setError(err.message);
     }
@@ -106,8 +105,7 @@ export default function RestaurantRegister() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
-          >
+            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
             Register
           </button>
         </form>
