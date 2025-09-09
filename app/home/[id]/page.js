@@ -123,7 +123,7 @@ export default function RestaurantDetails() {
 
       setTimeout(() => {
         setOrderSuccess(false);
-        router.push("/home");
+        router.push("/home/orderhistory");
       }, 2000);
     } catch (err) {
       console.error(err);
@@ -359,7 +359,7 @@ export default function RestaurantDetails() {
           </div>
 
           {/* Floating Cart Sidebar */}
-          {(
+          {
             <div className="mt-5 w-full bg-white rounded-2xl shadow-lg p-6 sticky top-24 h-fit">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold flex items-center gap-2">
@@ -440,7 +440,7 @@ export default function RestaurantDetails() {
                 </>
               )}
             </div>
-          )}
+          }
         </div>
       </div>
 

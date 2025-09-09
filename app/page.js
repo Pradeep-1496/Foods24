@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: 'Foods24 - Order Your Favorite Food',
-  description: 'Premium food ordering experience with fast delivery',
-}
+  title: "Foods24 - Order Your Favorite Food",
+  description: "Premium food ordering experience with fast delivery",
+};
 
 export default function Home() {
   return (
@@ -21,14 +21,19 @@ export default function Home() {
           {/* Logo/Icon */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-orange-400 to-pink-500 rounded-2xl mb-4 shadow-lg">
-              <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              <svg
+                className="w-10 h-10 text-white"
+                fill="currentColor"
+                viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
               </svg>
             </div>
             <h1 className="text-4xl font-bold text-white mb-2 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               Foods24
             </h1>
-            <p className="text-white/70 text-lg">Delicious food, delivered fast</p>
+            <p className="text-white/70 text-lg">
+              Delicious food, delivered fast
+            </p>
           </div>
 
           {/* Action Buttons */}
@@ -36,8 +41,11 @@ export default function Home() {
             <Link href="/user/login">
               <button className="group w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg">
                 <div className="flex items-center justify-center space-x-3">
-                  <svg className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  <svg
+                    className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300"
+                    fill="currentColor"
+                    viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                   </svg>
                   <span>Order as Customer</span>
                 </div>
@@ -47,8 +55,11 @@ export default function Home() {
             <Link href="/restaurant/login">
               <button className="mt-5 group w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg">
                 <div className="flex items-center justify-center space-x-3">
-                  <svg className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97L6.5 13h2.25l-.25-.03C10.34 12.84 12 11.12 12 9V2h-1v7zm5-3v8h2.5c1.1 0 2-.9 2-2v-3c0-1.1-.9-2-2-2H16zm2.5 5.5h-1.5V7.5h1.5v4z"/>
+                  <svg
+                    className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300"
+                    fill="currentColor"
+                    viewBox="0 0 24 24">
+                    <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97L6.5 13h2.25l-.25-.03C10.34 12.84 12 11.12 12 9V2h-1v7zm5-3v8h2.5c1.1 0 2-.9 2-2v-3c0-1.1-.9-2-2-2H16zm2.5 5.5h-1.5V7.5h1.5v4z" />
                   </svg>
                   <span>Restaurant Partner</span>
                 </div>

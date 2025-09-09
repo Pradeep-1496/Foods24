@@ -24,6 +24,7 @@ import {
   Star,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Dashboard() {
   const router = useRouter();
@@ -60,16 +61,27 @@ export default function Dashboard() {
       router.replace("/restaurant/login");
       return;
     }
+
     fetchData(token);
     fetchProfile(token);
+
+    // 🔄 Auto-refresh orders every 10 seconds
+    const interval = setInterval(() => {
+      fetchOrders(token);
+    }, 10000);
+
+    return () => clearInterval(interval); // cleanup on unmount
   }, [router]);
 
   // Fetch profile data
   async function fetchProfile(token) {
     try {
-      const res = await fetch("https://foods24-be.vercel.app/restaurant/profile", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        "https://foods24-be.vercel.app/restaurant/profile",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         setProfile(data);
@@ -201,14 +213,17 @@ export default function Dashboard() {
   // Profile handlers
   const handleProfileSave = async () => {
     try {
-      const res = await fetch("https://foods24-be.vercel.app/restaurant/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(profile),
-      });
+      const res = await fetch(
+        "https://foods24-be.vercel.app/restaurant/profile",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(profile),
+        }
+      );
       if (!res.ok) throw new Error("Failed to update profile");
       setIsEditingProfile(false);
     } catch (err) {
@@ -278,13 +293,12 @@ export default function Dashboard() {
           {orders.map((order) => (
             <div
               key={order._id}
-              className="border border-gray-200 rounded-xl p-6 bg-white hover:shadow-lg transition-all duration-200"
-            >
+              className="border border-gray-200 rounded-xl p-6 bg-white hover:shadow-lg transition-all duration-200">
               {/* Order Header */}
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h4 className="text-lg font-bold text-gray-800">
-                    Order #{order._id.substring(0, 8).toUpperCase()}
+                    Order #{order._id.slice(-8)}
                   </h4>
                   <div className="flex items-center space-x-2 mt-1">
                     <Clock className="w-4 h-4 text-gray-500" />
@@ -302,9 +316,9 @@ export default function Dashboard() {
                   <div
                     className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ${getOrderStatusColor(
                       order.status
-                    )}`}
-                  >
-                    {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                    )}`}>
+                    {order.status.charAt(0).toUpperCase() +
+                      order.status.slice(1)}
                   </div>
                   <p className="text-2xl font-bold text-green-600 mt-2">
                     ₹{order.totalAmount}
@@ -336,14 +350,15 @@ export default function Dashboard() {
 
               {/* Order Items */}
               <div className="mb-4">
-                <h5 className="font-semibold text-gray-800 mb-3">Order Items</h5>
+                <h5 className="font-semibold text-gray-800 mb-3">
+                  Order Items
+                </h5>
                 <div className="space-y-2">
                   {order.items &&
                     order.items.map((i, index) => (
                       <div
                         key={index}
-                        className="flex justify-between items-center p-3 bg-gray-50 rounded-lg"
-                      >
+                        className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                         <div>
                           <span className="font-medium text-gray-800">
                             {i.item?.name || "Unknown Item"}
@@ -366,15 +381,13 @@ export default function Dashboard() {
                   <>
                     <button
                       onClick={() => updateOrderStatus(order._id, "ongoing")}
-                      className="flex items-center space-x-2 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
-                    >
+                      className="flex items-center space-x-2 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
                       <Pause className="w-4 h-4" />
                       <span>Start Preparing</span>
                     </button>
                     <button
                       onClick={() => updateOrderStatus(order._id, "cancelled")}
-                      className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
-                    >
+                      className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
                       <XCircle className="w-4 h-4" />
                       <span>Cancel</span>
                     </button>
@@ -383,8 +396,7 @@ export default function Dashboard() {
                 {order.status === "ongoing" && (
                   <button
                     onClick={() => updateOrderStatus(order._id, "completed")}
-                    className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
-                  >
+                    className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
                     <CheckCircle className="w-4 h-4" />
                     <span>Mark Complete</span>
                   </button>
@@ -406,8 +418,7 @@ export default function Dashboard() {
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                className="p-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-200 shadow-lg"
-              >
+                className="p-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl hover:from-blue-600 hover:to-purple-600 transition-all duration-200 shadow-lg">
                 {isSidebarOpen ? (
                   <X className="w-6 h-6 text-white" />
                 ) : (
@@ -441,8 +452,7 @@ export default function Dashboard() {
         <div
           className={`${
             isSidebarOpen ? "w-80" : "w-0"
-          } overflow-hidden transition-all duration-300 bg-white shadow-2xl border-r border-gray-100`}
-        >
+          } overflow-hidden transition-all duration-300 bg-white shadow-2xl border-r border-gray-100`}>
           <div className="p-8">
             {/* Profile Section */}
             <div className="mb-8 p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl border border-blue-100">
@@ -450,7 +460,7 @@ export default function Dashboard() {
                 <div className="relative">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center overflow-hidden">
                     {profile.image ? (
-                      <img
+                      <Image
                         src={profile.image}
                         alt="Profile"
                         className="w-full h-full object-cover"
@@ -536,15 +546,13 @@ export default function Dashboard() {
                   <div className="flex space-x-2">
                     <button
                       onClick={handleProfileSave}
-                      className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors"
-                    >
+                      className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors">
                       <Save className="w-4 h-4" />
                       <span>Save</span>
                     </button>
                     <button
                       onClick={() => setIsEditingProfile(false)}
-                      className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors"
-                    >
+                      className="bg-gray-500 hover:bg-gray-600 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors">
                       Cancel
                     </button>
                   </div>
@@ -552,8 +560,7 @@ export default function Dashboard() {
                   <div className="flex space-x-2">
                     <button
                       onClick={() => setIsEditingProfile(true)}
-                      className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors"
-                    >
+                      className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors">
                       <Edit className="w-4 h-4" />
                       <span>Edit Profile</span>
                     </button>
@@ -569,8 +576,7 @@ export default function Dashboard() {
                   activeTab === "orders"
                     ? "bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg transform scale-105"
                     : "text-gray-600 hover:bg-gray-100"
-                }`}
-              >
+                }`}>
                 <Package className="w-5 h-5" />
                 <span className="font-medium">Orders</span>
               </button>
@@ -581,8 +587,7 @@ export default function Dashboard() {
                   activeTab === "menu"
                     ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg transform scale-105"
                     : "text-gray-600 hover:bg-gray-100"
-                }`}
-              >
+                }`}>
                 <ChefHat className="w-5 h-5" />
                 <span className="font-medium">Menu Management</span>
               </button>
@@ -591,8 +596,7 @@ export default function Dashboard() {
             <div className="border-t border-gray-200 pt-6">
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center space-x-3 px-6 py-4 text-red-600 hover:bg-red-50 rounded-2xl transition-all duration-200"
-              >
+                className="w-full flex items-center space-x-3 px-6 py-4 text-red-600 hover:bg-red-50 rounded-2xl transition-all duration-200">
                 <LogOut className="w-5 h-5" />
                 <span className="font-medium">Logout</span>
               </button>
@@ -623,22 +627,23 @@ export default function Dashboard() {
                   </p>
                 </div>
               </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                {/* Pending Orders */}
+                <OrderSection
+                  title="Pending Orders"
+                  orders={pendingOrders}
+                  statusColor="bg-orange-400"
+                  emptyMessage="No pending orders"
+                />
 
-              {/* Pending Orders */}
-              <OrderSection
-                title="Pending Orders"
-                orders={pendingOrders}
-                statusColor="bg-orange-400"
-                emptyMessage="No pending orders"
-              />
-
-              {/* Ongoing Orders */}
-              <OrderSection
-                title="Ongoing Orders"
-                orders={ongoingOrders}
-                statusColor="bg-yellow-400"
-                emptyMessage="No orders in preparation"
-              />
+                {/* Ongoing Orders */}
+                <OrderSection
+                  title="Ongoing Orders"
+                  orders={ongoingOrders}
+                  statusColor="bg-yellow-400"
+                  emptyMessage="No orders in preparation"
+                />
+              </div>
 
               {/* Completed Orders */}
               <OrderSection
@@ -693,14 +698,12 @@ export default function Dashboard() {
                   <div className="flex space-x-4 mt-6">
                     <button
                       onClick={handleAddItem}
-                      className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg"
-                    >
+                      className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg">
                       Add Item
                     </button>
                     <button
                       onClick={() => setShowAddForm(false)}
-                      className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 rounded-xl font-semibold transition-colors"
-                    >
+                      className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 rounded-xl font-semibold transition-colors">
                       Cancel
                     </button>
                   </div>
@@ -751,14 +754,12 @@ export default function Dashboard() {
                   <div className="flex space-x-4 mt-6">
                     <button
                       onClick={handleUpdate}
-                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg"
-                    >
+                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg">
                       Save Changes
                     </button>
                     <button
                       onClick={() => setEditingItem(null)}
-                      className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 rounded-xl font-semibold transition-colors"
-                    >
+                      className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-3 rounded-xl font-semibold transition-colors">
                       Cancel
                     </button>
                   </div>
@@ -783,8 +784,7 @@ export default function Dashboard() {
                   </div>
                   <button
                     onClick={() => setShowAddForm(true)}
-                    className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 transition-all duration-200 shadow-lg transform hover:scale-105"
-                  >
+                    className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold flex items-center space-x-2 transition-all duration-200 shadow-lg transform hover:scale-105">
                     <Plus className="w-5 h-5" />
                     <span>Add Item</span>
                   </button>
@@ -801,8 +801,7 @@ export default function Dashboard() {
                     </p>
                     <button
                       onClick={() => setShowAddForm(true)}
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200"
-                    >
+                      className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200">
                       Add Your First Item
                     </button>
                   </div>
@@ -811,8 +810,7 @@ export default function Dashboard() {
                     {menu.map((item) => (
                       <div
                         key={item._id}
-                        className="bg-gradient-to-br from-white to-purple-50 border border-purple-100 rounded-2xl p-6 hover:shadow-xl transition-all duration-200 transform hover:scale-105"
-                      >
+                        className="bg-gradient-to-br from-white to-purple-50 border border-purple-100 rounded-2xl p-6 hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                         <div className="flex justify-between items-start mb-4">
                           <h3 className="text-xl font-bold text-gray-800 flex-1 mr-2">
                             {item.name}
@@ -820,14 +818,12 @@ export default function Dashboard() {
                           <div className="flex space-x-2">
                             <button
                               onClick={() => setEditingItem(item)}
-                              className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
-                            >
+                              className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors">
                               <Edit className="w-5 h-5" />
                             </button>
                             <button
                               onClick={() => handleDelete(item._id)}
-                              className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
-                            >
+                              className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors">
                               <Trash2 className="w-5 h-5" />
                             </button>
                           </div>
